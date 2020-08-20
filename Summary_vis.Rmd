@@ -1,0 +1,60 @@
+---
+title: "Summary statistics and Data visualisation"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(mosaic)
+library(ggformula)
+library(palmerpenguins) #Add install to bio2020 package
+library(datasauRus)     #Add install to bio2020 package
+#caterpillers <- read.csv("www/regression.csv")
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction
+
+Now that we have gained a throuogh understanding of some of the measures of centrality and variance that we might want to calculate we need to understand how to apply this for our data. 
+
+Here we will run through:
+
+- Generating summary statistics for our dataset (as a whole and for individual variables)
+- Visualising and plotting our data
+
+## Checking your data 
+
+Once you have collected your data and read it in to R the first thing to do is to check that you have thr right data!
+
+There are a couple of R functions that offer a useful jumping off point. 
+Run the below code to see what output it generates
+
+```{r data-check, exercise=TRUE, exercise.completion=FALSE}
+# The head function shows you the first 6 rows of your data set
+  head(penguins)
+# The names function tells you the names of each of your columns
+  names(penguins)
+ 
+```
+
+Now that we have checked our data and we are happy that we are looking at the correct data file we can start to interrogate it a bit further.
+
+We can check the number of rows and columns using the `dim()` function or using `nrow()` or `ncol()` and we can investigate the structure of our data using `str()`
+
+We can use the `summary()` function to give us a summary of the entire dataset which can be a useful way to identify outliers.
+
+Using the summary function can you find out how much the heaviest penguin weighs?
+
+```{r heavy-penguin, exercise=TRUE, exercise.completion=FALSE}
+
+ 
+```
+
+<div id="heavy-penguin-hint">
+**Hint** Use  `args(summary)` to check what inputs the summary function needs 
+</div>
+
+
+
+
