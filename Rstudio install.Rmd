@@ -4,8 +4,10 @@ output: learnr::tutorial
 runtime: shiny_prerendered
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, warning = FALSE, message = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+library(dplyr)
+library(flextable)
 ```
 
 ## R and Rstudio installation
@@ -56,18 +58,18 @@ knitr::include_graphics("images/Rstudio4packages.png")
 You should now have Four panes in your Rstudio window, you might notice that some of them have multiple tabs as well. Let's run through the meaning of each of the panes, and the tabs that we are going to be using:
 
 ### Scripts
- The pane in the *top left* contains your scripts, scripts are files that contain code, most often you will be working with files that have the .R extension, these are files that your comuter recognises as containing R code. 
+ The pane in the **top left** contains your scripts, scripts are files that contain code, most often you will be working with files that have the .R extension, these are files that your comuter recognises as containing R code. 
 One of the key reasons that R is so popular is because it allows us to make our work reproducible.
 By writing down each bit of our analysis and saving it in a script we can reproduce our work with ease. 
 Future you will be thank past you for saving your code in scripts when you are making last minute edits to your dissertation and you need to remember exactly what the analysis methods you used were.
 
 ### Environment
- The pane in the *top right* has a couple of tabs but the one that we need to know about is the Environment tab.
+ The pane in the **top right** has a couple of tabs but the one that we need to know about is the Environment tab.
 The Environment pane tells us what objects R has loaded in to its memory, these might be data files that we have imported or the results of some analyses. 
 This pane shows us the objects that R has available for doing useful stuff.
 
 ### Console
-The pane in the *bottom left* also has several tabs and the one that we use is called the console.
+The pane in the **bottom left** also has several tabs and the one that we use is called the console.
 This pane is the 'doing pane' when we want to run bits f code that we have saved in our script we send them to the console to be executed - which means R does what our code tells it to do.
 You might see people typing code directly in to the console and while this is possible it is not advisable.
 
@@ -90,9 +92,24 @@ Packages are collections of code that other people have written that we can use.
 knitr::include_graphics("images/Rstudio4packages.png")
 ```
 
-A note on packages `r emo::ji("package")` 
+```{r, message =FALSE, warning= FALSE}
 
-When working through tutorials you might find examples of functions being noted to belong to a package. eg. we're going to use the `read_csv` function (`r emo::ji("package")`  readr)
+p <- paste("When working through tutorials you might find examples of functions being noted to belong to a package. eg. we're going to use the `read_csv` function (", emo::ji("package"),"readr)")
+p <- as.data.frame(p)
+names(p) <- paste("A note on packages", emo::ji("package"))
+
+myft <- flextable(p) %>% 
+ bg(., bg = "#9cdce6", part = "header") %>% 
+bg(bg = "#9cdce6", part = "body") %>% 
+align(align = "center", part = "all") %>% 
+set_table_properties(width = 1, layout = "autofit")
+myft
+```
+
+
+<!-- A note on packages `r emo::ji("package")`  -->
+
+<!-- When working through tutorials you might find examples of functions being noted to belong to a package. eg. we're going to use the `read_csv` function (`r emo::ji("package")`  readr) -->
 
 Students often ask "how do you remember which functions to use" and "which functions are in each package" the answer is that it is experience, the more you come to use R the more of the code you remember.
 The good news is that you don't necessarily need to memorise which package a particular function belongs to but knowing can help with troubleshooting issues, the most common being that R doesn't recognise a function when the package that function belongs to hasn't been loaded. 
