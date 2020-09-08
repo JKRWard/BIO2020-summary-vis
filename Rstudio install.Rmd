@@ -94,15 +94,21 @@ knitr::include_graphics("images/Rstudio4packages.png")
 
 ```{r, message =FALSE, warning= FALSE}
 
-p <- paste("When working through tutorials you might find examples of functions being noted to belong to a package. eg. we're going to use the `read_csv` function (", emo::ji("package"),"readr)")
+p <- paste("When working through tutorials you might find examples of functions being noted to belong to a package. eg. we're going to use the `read_csv` function (", emo::ji("package"),"readr). The package is noted for reference, a common error that we see is R ")
 p <- as.data.frame(p)
 names(p) <- paste("A note on packages", emo::ji("package"))
+
+#big_border = fp_border(color="#9cdce6", width = 2)
+
 
 myft <- flextable(p) %>% 
  bg(., bg = "#9cdce6", part = "header") %>% 
 bg(bg = "#9cdce6", part = "body") %>% 
-align(align = "center", part = "all") %>% 
-set_table_properties(width = 1, layout = "autofit")
+align(align = "left", part = "all") %>% 
+  bold(part = "header") %>% 
+  fontsize(part= "all", size = 12) %>% 
+set_table_properties(width = 1, layout = "autofit") %>% 
+border_remove()
 myft
 ```
 
