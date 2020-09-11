@@ -102,7 +102,9 @@ knitr::include_graphics("images/Rstudio4packages.png")
 
 ```{r, message =FALSE, warning= FALSE, echo = FALSE}
 
-p <- paste("When working through tutorials you might find examples of functions being noted to belong to a package. eg. we're going to use the `read_csv` function (", emo::ji("package"),"readr). The package is noted for reference, a common error that we see is R ")
+p <- paste("When working through tutorials you might find examples of functions being noted to belong to a package. eg. we're going to use the `mean` function (", emo::ji("package"),"mosaic). The package is noted for reference, a common error that we see is students trying to use a fnumction without remembering to first load the package that it belongs to. This casues R to return an error, checking that the correct package is loaded is usually the first thing that we do when trying to resolve an error like this. Students often ask how do you remember which functions to use? and which functions are in each package? the answer is that it is experience, the more you come to use R the more of the code you remember.
+The good news is that you don't necessarily need to memorise which package a particular function belongs to but knowing can help with troubleshooting issues,which is why we reference them here for you. 
+ ")
 p <- as.data.frame(p)
 names(p) <- paste("A note on packages", emo::ji("package"))
 
@@ -125,8 +127,6 @@ myft
 
 <!-- When working through tutorials you might find examples of functions being noted to belong to a package. eg. we're going to use the `read_csv` function (`r emo::ji("package")`  readr) -->
 
-Students often ask "how do you remember which functions to use" and "which functions are in each package" the answer is that it is experience, the more you come to use R the more of the code you remember.
-The good news is that you don't necessarily need to memorise which package a particular function belongs to but knowing can help with troubleshooting issues, the most common being that R doesn't recognise a function when the package that function belongs to hasn't been loaded. 
 
 The ***Help*** tab offers you an interactive window through which you can use the help files for R functions.
 You can use the search bar at the top of the pane to search for the help files associated with a given package or function. 
@@ -136,7 +136,7 @@ We will cover the help files in more detail once we have got a bit more of an un
 knitr::include_graphics("images/Rstudio4help.png")
 ```
 
-The ***Viewer*** tab can be used to look at interactive files such as animated plots or the tutorials that we are working through...if tutorials are being hosted in the package???
+
 
 #### Think of R as your Kitchen
 
@@ -156,6 +156,12 @@ You don't always have to cook everything from scratch - you can use the informat
 
 
 FYI: you can change the default location of the panes, among many other things: [Customizing R Studio](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio)
+
+If you are moving panes about and you accidentally lose one don't worry, it can easily be recovered
+```{r, echo = FALSE, fig.width=8}
+knitr::include_graphics("images/recover_panels.gif")
+```
+
 
 ## Working with data
 
@@ -538,29 +544,33 @@ In all cases we need to assign the information in the file to an object so our c
 #### `r emo::ji("file_folder")`CSV
 
 Often data are stored in a `.csv` file a specific file type that is commonly used, these files look just like excel files (you can open them up and look at them in excel) they are just read differently by the computer.
-You will likely see two different ways of reading these files in to R using either the `read.csv()` function or the `read_csv()` function (`r emo::ji("package")` readr).
-These functions essentially do the same thing (get your data in to R) but with some slight differences that we will address later on.
+
+You can convert Excel spreadsheets to `.csv` files by saving them as such. 
+When saving your file in excel select `file` > `save as` > `comma delimited (csv)` to save it as this file type.
+You can then read it into R using the `read.csv()` function.
+
+<!-- You will likely see two different ways of reading these files in to R using either the `read.csv()` function or the `read_csv()` function (`r emo::ji("package")` readr). -->
+<!-- These functions essentially do the same thing (get your data in to R) but with some slight differences that we will address later on. -->
 
 ```{r, eval = FALSE, echo = TRUE}
 my_data_object <- read.csv(path = "Path_to_the_file.csv")
 
-my_data_object <- read_csv(path = "Path_to_the_file.csv")
 ```
 
-#### `r emo::ji("file_folder")` Excel 
+<!-- #### `r emo::ji("file_folder")` Excel  -->
 
-Using the `read_excel()` function (`r emo::ji("package")` reaxl) you can import information from excel files (`.xlsx` and `.xls`) containing multiple sheets. 
-By default the function will read the information from the first sheet unless you specify the name of the sheet that you want. 
+<!-- Using the `read_excel()` function (`r emo::ji("package")` reaxl) you can import information from excel files (`.xlsx` and `.xls`) containing multiple sheets.  -->
+<!-- By default the function will read the information from the first sheet unless you specify the name of the sheet that you want.  -->
 
-```{r, eval = FALSE, echo = TRUE}
-my_data_object <- read_excel(path = "Path to the file.xlsx", sheet = "name of sheet")
-```
+<!-- ```{r, eval = FALSE, echo = TRUE} -->
+<!-- my_data_object <- read_excel(path = "Path to the file.xlsx", sheet = "name of sheet") -->
+<!-- ``` -->
 
 ### Saving outputs
 
 #### Saving data objects `r emo::ji("1234")`
 Once we have manipulated our data we may want to save it as a file that we can then share with others. 
-Data can be saved to `.csv` files using either the `write.csv` function or the `write_csv` function (`r emo::ji("package")` readr).
+Data can be saved to `.csv` files using <!--either--> the `write.csv` function. <!--or the `write_csv` function (`r emo::ji("package")` readr).-->
 
 The code is similar to that used to read data in, it requires the filepath specifying where you want to save the file which includes the name that you want to give to the file, and it requires the name of the object that is being written (saved).
 
@@ -589,17 +599,17 @@ knitr::include_graphics("images/plot_popup.png")
 
 You can specify the image size using the numbers or you can grab the plot by the triangle in the bottom right corner of the preview pane and drag the plot to the desired size. 
 
-## Basic manipulations
-- selecting
-- filtering
+<!-- ## Basic manipulations -->
+<!-- - selecting -->
+<!-- - filtering -->
 
-More on [data manipulation](http://datacarpentry.org/R-ecology-lesson/03-dplyr.html)
+<!-- More on [data manipulation](http://datacarpentry.org/R-ecology-lesson/03-dplyr.html) -->
 
-## Plotting 
+<!-- ## Plotting  -->
 
-More on [data visualisation](http://datacarpentry.org/R-ecology-lesson/04-visualization-ggplot2.html)
+<!-- More on [data visualisation](http://datacarpentry.org/R-ecology-lesson/04-visualization-ggplot2.html) -->
 
-Kieran Healeys data viz [book](https://socviz.co/index.html#what-you-will-learn)
+<!-- Kieran Healeys data viz [book](https://socviz.co/index.html#what-you-will-learn) -->
 
 ## Getting help
 
@@ -614,8 +624,32 @@ knitr::include_graphics("images/read_help.png")
 
 More detail about the sections of the help files can be found [here](https://socviz.co/appendix.html#a-little-more-about-r)
 
-- googleing your error message top tips 
-- Ask your classmates they might have solved a similar issue (will they have teams space?)
+**Error messages**
+
+Error messages can be difficult themselves to decode, the below graphic brakes things down a bit
+```{r, echo = FALSE}
+knitr::include_graphics("images/rex_an_error.png")
+```
+
+you can try googling them or searching [Rseek](https://rseek.org/) a search engine specifically for R related materials. 
+
+
+
+**Still stuck?**
+
+Ask your classmates, they might have encountered the same or similar problem!
+
+Check out the [`#`rstats](https://twitter.com/hashtag/rstats?lang=en) on twitter for useful advice.
+
+The community or R users are extremely welcoming and supportive so just remember you're not alone!
+
+
+```{r, echo = FALSE, fig.cap="artwork by @allisonhorst"}
+knitr::include_graphics("images/code_hero.png")
+```
+
+
+
 
 
 ## Further resources
@@ -625,7 +659,6 @@ Want to keep learning
 ```{r, echo = FALSE}
 knitr::include_graphics("https://media.giphy.com/media/26mkhLA0gzRJbAWL6/giphy.gif")
 ```
-
 
 
 There are A LOT of excellent resources out there for learning R, some of those that we recommend are listed here and should be enough to keep you going 
