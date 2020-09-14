@@ -26,11 +26,11 @@ Now that we are starting to think about analysing some data we need to know some
 - Generate summary statistics for our dataset (as a whole and for individual variables) `r emo::ji("multiply")` `r emo::ji("abacus")` `r emo::ji("heavy_division_sign")`
 - Visualise and plot our data `r emo::ji("bar_chart")``r emo::ji("chart_increasing")`  
 
-This tutorial focuses more on the 'how', offering you some code chunks that you can modify (and reuse in future should you need to)to help you familiarise yourself with carrying out such operations in R, the 'why' pertaining to many of the concepts touched on here will be covered in more detail in the Summary Stats tutorial.
+This tutorial focuses more on the 'how', offering you some code chunks that you can modify (and reuse in future should you need to)to help you familiarize yourself with carrying out such operations in R, the 'why' pertaining to many of the concepts touched on here will be covered in more detail in the Summary Stats tutorial.
 
 ## Checking your data 
 
-Once you have collected your data and read it in to R (if you need a recap of reading in data go to bact to the previous tutorial) the first thing to do is to check that you have the right data!
+Once you have collected your data and read it in to R (if you need a recap of reading in data go to back to the previous tutorial) the first thing to do is to check that you have the right data!
 
 Lets start by having a look at some data.
 We are going look at some data that contains information about penguins that was collected by researchers at the `r emo::ji("penguin")` [palmer research station](https://pal.lternet.edu/)  `r emo::ji("penguin")`  
@@ -520,7 +520,7 @@ gf_violin(body_mass_g~species, colour = ~species, alpha = 0.5,data = penguins) %
   gf_labs(x = "Penguin species", y = "Body mass (g)")
 ```
 
-You have now succesfully created some informative plots that you could put striaght into a report about penguins such as the [Paper](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0090081) that these data were origionally published in.
+You have now successfully created some informative plots that you could put straight into a report about penguins such as the [Paper](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0090081) that these data were originally published in.
 
 
 
