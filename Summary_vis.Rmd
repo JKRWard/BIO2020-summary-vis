@@ -30,7 +30,7 @@ This tutorial focuses more on the 'how', offering you some code chunks that you 
 
 ## Checking your data 
 
-Once you have collected your data and read it in to R (if you need a recap of reading in data go to xyz... install tutorial link...) the first thing to do is to check that you have the right data!
+Once you have collected your data and read it in to R (if you need a recap of reading in data go to bact to the previous tutorial) the first thing to do is to check that you have the right data!
 
 Lets start by having a look at some data.
 We are going look at some data that contains information about penguins that was collected by researchers at the `r emo::ji("penguin")` [palmer research station](https://pal.lternet.edu/)  `r emo::ji("penguin")`  
@@ -336,7 +336,8 @@ We can take our bar chart that showed how many penguins were recorded on each is
 Run the code below to see the output, then change the position argument in the below code to `dodge` and see what the different output looks like.
 
 ```{r penguin-dodge, exercise=TRUE, exercise.completion=FALSE}
-gf_bar(~island, position= "stack", fill = ~species, data= penguins)
+gf_bar(~island, position= "stack", 
+       fill = ~species, data= penguins)
 ```
 
 <div id="penguin-dodge-hint">
@@ -346,7 +347,8 @@ gf_bar(~island, position= "stack", fill = ~species, data= penguins)
 The `gf_bar()` function gives us counts of our variables in each group, we could change that to show us what proportion of the data are in each category by instead using the `gf_props()` function 
 
 ```{r penguin-prop, exercise=TRUE, exercise.completion=FALSE}
-gf_props(~island, position= "stack", fill = ~species, data= penguins)
+gf_props(~island, position= "stack", 
+         fill = ~species, data= penguins)
 ```
 
 This helps us to see that almost half of the data were collected on Biscoe island.
@@ -360,13 +362,16 @@ Can you modify the below code to
   2. Size the points according to body mass
 
 ```{r penguin-bill, exercise=TRUE, exercise.completion=FALSE}
-gf_point(bill_depth_mm ~ bill_length_mm, data= penguins)
+gf_point(bill_depth_mm ~ bill_length_mm, 
+         data= penguins)
 ```
 
 
 ```{r penguin-bill-solution}
 # colour by species, size by body_mass
-gf_point(bill_depth_mm ~ bill_length_mm, colour = ~species, size = ~body_mass_g, data= penguins)
+gf_point(bill_depth_mm ~ bill_length_mm, 
+         colour = ~species, size = ~body_mass_g, 
+         data= penguins)
 
 ```
 
@@ -507,9 +512,16 @@ gf_violin(body_mass_g~species, colour = ~species, alpha = 0.5,data = penguins) %
   
 ```
 
-task to modify the violin plot appearance - change colours  and theme
+Now see if you can modify the faceted plot to change the theme and the colours, check the code from the bill length vs. bill depth plot if you get stuck. 
 
-note about ggplot gives more power but needs more code - link to tutorial 
+```{r custom, exercise = TRUE, exercise.completion= FALSE}
+gf_violin(body_mass_g~species, colour = ~species, alpha = 0.5,data = penguins) %>% 
+  gf_sina(shape = ~sex, colour = ~species, alpha = 0.3) %>% 
+  gf_labs(x = "Penguin species", y = "Body mass (g)")
+```
+
+You have now succesfully created some informative plots that you could put striaght into a report about penguins such as the [Paper](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0090081) that these data were origionally published in.
+
 
 
 
