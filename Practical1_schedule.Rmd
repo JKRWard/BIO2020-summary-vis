@@ -8,7 +8,7 @@ output: word_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r, echo = FALSE, message=FALSE,wardning= FALSE}
+```{r, echo = FALSE, message=FALSE,warning= FALSE}
 library(dplyr)
 
 ```
@@ -18,7 +18,7 @@ library(dplyr)
 We are going to start by creating a Project called BIO2020 to keep all of our work relating to the BIO2020 module together in one place.
 
 Start by opening up R Studio on your computer. 
-To create a new project go to the projects menu, either by clicking the dropdown in the top right hand side of your window (next to where it says `Project: (None)`) or by clicking `File` > `New Project`  
+To create a new project go to the projects menu, either by clicking the drop-down in the top right hand side of your window (next to where it says `Project: (None)`) or by clicking `File` > `New Project`  
 
 You should now see this popup window: 
 
@@ -33,10 +33,10 @@ Click `Create project` and you should now see the name of your project displayed
 
 **NOTE** If you are an organised person and you had already created a folder for all of the work associated with the BIO2020 module you can select `Existing Directory` navigate to your already existing folder and then select create project and the `.RProj` file will live in that folder alongside all your other files
 
-Within your BIO2020 Project folder we suggest that you create a `r emo::ji("file_folder")` Data subfolder.
+Within your BIO2020 Project folder we suggest that you create a `r emo::ji("file_folder")` Data sub-folder.
 The data files for all of the practical classes are available on Canvas, you should download the files and store them in the Data folder that you just created. 
 
-The next step is to create a new `script` to store all of the code for todays practical. 
+The next step is to create a new `script` to store all of the code for today's practical. 
 In the top left click `file` > `new file` > `R script`
 Click on the save icon `r emo::ji("floppy_disk")` to save this script and give it a meaningful name eg. `Practicl_1.R`
 Now we are ready to write some code!
@@ -53,9 +53,9 @@ You write your code in your script (because you have listened to our advice and 
 
 Either of these actions sends your code to the console where it is executed so that R carries out the instructions that are your code.
 
-## Imoprting data
+## Importing data
 
-Firstly check that you are workng in the project (BIO2020) that you just created, the project icon in the top right hand side of your R studio window should be displaying the name of your project.
+Firstly check that you are working in the project (BIO2020) that you just created, the project icon in the top right hand side of your R studio window should be displaying the name of your project.
 
 For this practical we will be using the following data files:
 
@@ -63,7 +63,7 @@ For this practical we will be using the following data files:
  + Chick_growth.csv
 
 To use these files we need to load them in to R and store each one in R's memory as an object. 
-Check that you have these files stored in `r emo::ji("file_folder")` Data, the subfolder of your project.
+Check that you have these files stored in `r emo::ji("file_folder")` Data, the sub-folder of your project.
 If they are there we can start by reading them in to R to get them into the `environment`
 
 ```{r, fig.align='center', echo = FALSE}
@@ -80,7 +80,7 @@ diet_dat <- read.csv("Data/Chick_Diet.csv")
 
 ```
 
-<!-- Note for demonstartor, if they have trouble reading in the data file check where the script file is saved, if it's in a subfolder of the project the code specifying the file path will need to escape that subfolder first using ../ so they need  read.csv("../Data/Chick_Diet.csv")-->
+<!-- Note for demonstrator, if they have trouble reading in the data file check where the script file is saved, if it's in a sub-folder of the project the code specifying the file path will need to escape that sub-folder first using ../ so they need  read.csv("../Data/Chick_Diet.csv")-->
 
 **Check the data that you have loaded**
 Some suggested functions are `head()` `str()` `summary()` `nrow()` `ncol()` `names()` 
@@ -108,7 +108,7 @@ str(diet_dat)
 Now that you have explored the dataset you can see that the `diet_dat` data contains the variables weight, Time, Chick and Diet.
 The `growth_dat` contains the variables Weight (note that this one is with a capital W), Time and Diet.
 
-The data refer to weights of growing chickens being fed one of four different Diets, `diet_dat` contains the weights of 50 individual chicks after a 21 day time period whereas `growth_dat` details the mean weight (accross all individuals being fed the same diet) at each time point.
+The data refer to weights of growing chickens being fed one of four different Diets, `diet_dat` contains the weights of 50 individual chicks after a 21 day time period whereas `growth_dat` details the mean weight (across all individuals being fed the same diet) at each time point.
 
 
 ### Loading Packages
@@ -121,7 +121,7 @@ Throughout the rest of this practical we are going to be using functions from tw
 
 If this is the first time that you are using these packages you will need to download them before loading them in to the library. 
 
-**Installing packages** is only required the first time that we use the package, because of this we **don't** want this code to be in our script because that might cause us to uneccessairily install the package each time we run the code in this script.
+**Installing packages** is only required the first time that we use the package, because of this we **don't** want this code to be in our script because that might cause us to unnecessarily install the package each time we run the code in this script.
 I know that we said to *always* write your code in a script but the `install.packages()` function is one of the very few exceptions.
 To install the packages you can type the following code directly into the **console**:
 
@@ -185,7 +185,7 @@ chick_med <- median(weight~Diet, data = diet_dat)
 **Store these values in objects called `chick_mean` and `chick_med`**
 
 But remember that these measures can be sensitive to outliers and to get a good understanding of our data we need to calculate some statistics that give us an idea of how our data is spread about the mean.
-If this is unfamilliar to you go back over the `Understanding measures of central tendency and variation` tutorial.
+If this is unfamiliar to you go back over the `Understanding measures of central tendency and variation` tutorial.
 
 Thankfully because we are doing our analysis in R we don't have to calculate measures such as variance, standard deviation and standard error by hand, we can use functions to help us.
 
@@ -216,7 +216,7 @@ Remember that we also discussed Standard Error as a useful measure that can be c
 $$se = \frac{\sigma}{\sqrt{n}}$$
 
 We have already calculated the variance but for the calculation of se we need to know n, the number of observations in our group.
-Again there is no need to count the number of observations in each group by hand, lets use the `favstats()` function which also computes some other useful measures that we might be intersted in.
+Again there is no need to count the number of observations in each group by hand, lets use the `favstats()` function which also computes some other useful measures that we might be interested in.
 
 **Create an object and assign the output of `favstats()` to that object**
 
@@ -297,7 +297,7 @@ You will need to:
  
 Remember you will need to use the pipe `%>%` (`r emo::ji("package")` dplyr) to join the functions together.
 
-As an extra challenge you can modify the colours using the `gf_refine()` and `scale_fill_manual()` functions to change the colours to four of your favourites.
+As an extra challenge you can modify the colours using the `gf_refine()` and `scale_fill_manual()` functions to change the colours to four of your favorites.
 
 **REMEMBER** to comment your code so that you can understand it in future (or refer back to it later on in this practical)
 
@@ -363,7 +363,7 @@ growth_dat <- read.csv("Data/Chick_growth.csv")
 
 Now that you have created some summary data and plots that describe the dataset you need to export them to b able to put them in a report.
 
-Export the data frame that you created detailing the mean, median, varuance, standard deviation and standard error of chick weights. 
+Export the data frame that you created detailing the mean, median, variance, standard deviation and standard error of chick weights. 
 
 Data frames can be exported by writing a file with the `write.csv()` function.
 The arguments of the `write.csv()` function are the name of the `object` that you want to export and the `filepath` including the file name of the data file that you want to create. 
@@ -373,13 +373,13 @@ The arguments of the `write.csv()` function are the name of the `object` that yo
 write.csv(my_data_frame, path = "Data/Chick_summary.csv")
 ```
 
-You should now see the file that you have just created in your file explorer, you can open the file in excel  and use this to create a table that you can omport into a word document. 
+You should now see the file that you have just created in your file explorer, you can open the file in excel  and use this to create a table that you can import into a word document. 
 
 Plots can be saved  from the plots pane.
 Use the arrows to navigate through the plots to find the ones that you want to save such as the bar chart of number of chicks in each category, the violin plot of chick weights and the plot of chick growth through time. 
-For each plot that you want to save click `Export` then `save as image` in the preivew pane you can alter the size of the plot and name the file that you want to create.
+For each plot that you want to save click `Export` then `save as image` in the preview pane you can alter the size of the plot and name the file that you want to create.
 
-Finally open a word document and insert the plots and summary table giving each a descriptive caption. Write a short paragraph that describes how the different diets in the study imact the growth of chickens, refferring to your figures and tables. 
+Finally open a word document and insert the plots and summary table giving each a descriptive caption. Write a short paragraph that describes how the different diets in the study impact the growth of chickens, referring to your figures and tables. 
 
 
 
