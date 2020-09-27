@@ -1,0 +1,167 @@
+---
+title: "Practical 2: Linear models and ANOVA"
+author: "BIO2020"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r, echo = FALSE, message=FALSE,warning= FALSE}
+library(dplyr)
+library(palmerpenguins)
+library(ggformula)
+
+```
+
+For this practical we will be revisitnig the `penguins` data set that we were using in the introductory data visualisation tutorial. 
+
+The `penguins` data are contained in a package called `r emo::ji("package")``palmerpenguins` so rather than importing the data from a `.csv` file we simply need to install and load the package.
+
+**Remember** that the first time we use a package on a computer we need to install it (and we only need to do this once) and that we usually put this code directly in to the console
+
+Once you have installed `r emo::ji("package")``palmerpenguins` you need to load it using the `library()` function
+
+Once the package has been loaded the dataset, which is called `penguins` will be available to use.
+
+Beause the data are associated with the package you will notice that you can interrogate the `penguins object but that it does not appear in your environment pane. 
+
+Using the functions that you learned in the first practical familiarise yourself with the `penguins` data. 
+
+```{r, eval= FALSE}
+# see the first 6 rows of the data frame
+head(penguins)
+
+# check the dimensiond of the data frame
+dim(penguins)
+
+```
+
+For each variable within the dataset note wether it is continous or categoric
+
+ + Species
+ + Island
+ + Bill length
+ + Bill depth
+ + Flipper length
+ + Body mass
+ + Sex
+ + Year
+
+## Continous explanatory variables
+
+We will start with a linear model to investigate the relationship between Flipper length and body mass.
+
+Firstly lets plot the data for these two variables, using a scatter plot with our explanatory variable of body mass on the x axis.
+
+```{r echo = FALSE}
+
+gf_point(flipper_length_mm ~ body_mass_g, data = penguins)
+```
+
+From this plot can you estimate:
+
+ + Will the intercept of the fitted line be positive or negative?
+ + Will the gradient of the fitted line be positive or negative?
+ 
+Let's create a linear model to see if our expectations were correct.
+
+You will remember from the tutorial that the standard syntax for a linear model is 
+
+`lm(response_variable ~ explanatory_variable, data = dataframe_name)`
+
+The function theat we use in R is `lm()` 
+
+**Create a linear model of flipper length and body mass**
+
+**Store the outputs of your linear model as an object called `mass_lm` that you can interrogate**
+
+```{r, echo = FALSE}
+mass_lm <- lm(flipper_length_mm~ body_mass_g, data = penguins)
+```
+
+Use the `summary()` function to investigate the outputs of your linear model 
+
+```{r}
+summary(mass_lm)
+```
+
+Were your expectations correct? Using the summary information from your model answer the following questions:
+
+ + What is the intercept of the fitted line?
+ + What is the gradient of the fitted line?
+ + Is the relationship between the explanatory and response variable significant? 
+ + What proportion of the response value can be explained by the explanatory value?  <!--adjusted rsquared--> 
+ + Using the `sqrt()` function can you calculate the correlation coefficient between the variables? <!--sqrt(adjusted r2)-->
+ + Is the overall model significant?  <!--Fstatistc-->
+
+ 
+### Plotting the fited line
+
+Add the fitted line from the inear model to your scatterplot using the `gf_lm()` function
+
+Remember that when adding a layer to your plot you will need to use the pipe ` %>% ` which can be created using the keyboard shortcut *Ctrl* + *shift* + *m* (*cmd* + *shift* + *m* on mac)
+
+```{r, echo = TRUE, eval = FALSE}
+
+gf_point(flipper_length_mm ~ body_mass_g, data = penguins) %>% 
+        gf_lm()
+
+```
+
+Using the lessons learned in the last practical can you tidy this plot up by: 
+
++ Removing the grey plot background
++ Altering the axis labels
++ Change the colour of the fitted line
+
+Refer back to your script from the previous practical if you need a reminder of how to do this
+
+```{r echo = FALSE}
+gf_point(flipper_length_mm ~ body_mass_g, data = penguins) %>% 
+        gf_lm(colour = "#e66101") %>% 
+        gf_labs( x = "Body mass (g)", y = "Flipper length (mm)") %>%                
+  gf_theme(theme_minimal())
+```
+
+
+### Calculate fitted values for new inputs 
+
+You will remember from the tutorial that the fitted or "predicted" values are those along the straight line that you have plotted using `gf_lm()` and that these values are stored in the model output under the `fitted.values` option which you can access by typing `mass_lm$fitted.values` once you have created your model object.
+
+Using the model that you have creted you need to determine the fitted value for a penguin that weighs **2000g**
+
+Remember that you can use R as a calculator to work out the fitted value using the formula:
+
+`intercept + (gradient * new value)`
+
+or
+
+`intercept - (gradient * new value)`
+
+if the gradient is negative 
+
+Check that your calculation is correct by using the `makeFun()` function  to create a function called `predictor`
+The argument to your `makeFun()` function will be the name of your model
+Check the predicted value by giving your new `predictor()` function the new input value of 2000g
+
+```{r}
+mass_lm <- lm(flipper_length_mm ~ body_mass_g, data = penguins)
+predictor <- makeFun(mass_lm)
+predictor(2000)
+```
+
+Are the values that you obtained the same?
+If the values are not exactly the same can you think why that might be? <!--rouding outputs from summary of model-->
+
+### Checking the assumptions of the model 
+
+
+- check assumptions 
+- qq plot - error residuals 
+
+
+## Categorical explanatory variable
+
+run through same stuff
