@@ -1,7 +1,9 @@
 ---
-title: "Practical 2: Linear models and ANOVA"
+title: 'Practical 2: Linear models and ANOVA'
 author: "BIO2020"
-output: word_document
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
