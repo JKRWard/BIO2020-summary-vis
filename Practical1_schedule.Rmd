@@ -158,7 +158,7 @@ We can calculate some summary statistics to see if there are differences between
 Calculate the mean weights for chicks being fed different diets.
 Remember we are using the formula 
 
-$$\text{statistic(variable ~ group, data= dataset)}$$
+$$statistic(variable \text{~} group, data= dataset)$$
 
 Where:
 
