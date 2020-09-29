@@ -234,7 +234,7 @@ Remember that we can access single columns using the `$` sign, so to calculate s
 chick_se <- chick_sd/(sqrt(fav_dat$n))
 ```
 
-**Add some notes about the above code as comments to demonstrate that you understand what each bit is doing**
+**Add some notes about the above code as comments using the # sign to demonstrate that you understand what each bit is doing**
 
 #### Creating a data frame 
 
@@ -299,7 +299,7 @@ Remember you will need to use the pipe `%>%` (`r emo::ji("package")` dplyr) to j
 
 As an extra challenge you can modify the colours using the `gf_refine()` and `scale_fill_manual()` functions to change the colours to four of your favorites.
 
-**REMEMBER** to comment your code so that you can understand it in future (or refer back to it later on in this practical)
+**REMEMBER** to comment your code with # signs so that you can understand it in future (or refer back to it later on in this practical)
 
 If you get stuck the code below gives an example of how to achieve the desired plot.
 You do not have to choose the same colours as we have included here, use [colour brewer](https://colorbrewer2.org/#type=diverging&scheme=PuOr&n=4) for colour pallet suggestions which helpfully suggests colour palettes that are colourbind friendly
@@ -327,7 +327,7 @@ gf_boxplot(weight~Diet, data = diet_dat)
 
 You might notice that the arguments `fill` and `colour` do slightly different things depending on the geometry (the violin or the points) that you are dealing with, play around with them to see what the differences are.
 
-You should end up with a plot that looks like the one below
+You should end up with a plot that looks like the one below. The last two lines are optional and give you more control over the colours, by picking the hex colour names. 
 
 ```{r}
 gf_violin(weight~Diet, colour = ~Diet, fill= ~Diet, alpha = 0.3,data = diet_dat) %>%       # THEN
