@@ -1,0 +1,144 @@
+---
+title: 'Practical 3: Multiple explanatory variables'
+author: "BIO2020"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+pea_dat <- read.csv("Data/Peas.csv")
+```
+
+Now that we have developed a good understanding of linear models we are going to look at some more complex cases. 
+During this tutorial we are going to recap how to deal with multiple explanatory variables in your analysis.
+
+## Pea growth
+ 
+ We will start by using some data that comes from an experiment investigating the effect of different fertilizers on the yield of peas.
+ The data are contained within the `Peas.csv` file.
+ Load the data in to R and assign it to an object called `pea_dat` that you can inspect using the functions that you have learned about in previous practical sessions.
+ 
+ From your inspections of the data what can you learn?
+ 
+```{r}
+#read in data from Peas.csv
+
+#inspect data 
+
+
+```
+ 
+
+ 
+### Lets talk about the data
+ 
+Often when you come to analyse some data you find that the data are stored in a format that is not quite what you want for analysis.
+In such instances you may need to manipulate your data or reshape it so that you can carry out your analyses or create your plots.
+This course is primarily focused on understanding the statistical principles that will enable you to rigorously inspect data that you come across rather than on data manipulation in R.
+That being said it's all very well knowing how to analyse your data but if you can't get your data into the correct format you aren't going to be able to carry out your analyses.
+We will 
+
+The data are currently in what is referred to as `wide format` 
+Use the `head()` function to look at the structure of the data as we currently have it.
+
+```{r echo = FALSE}
+head(pea_dat)
+```
+
+We have columns containing the yield values  resulting from each treatment.
+To compare the effects of the treatments on the yield values it would be more useful to have the yield values as a column alongside a column detailing the treatment.
+This is what is referred to as `long format` data where each row contains a single observation. 
+
+**- insert image here** 
+
+You may have noticed that in the previous tutorial we used the `pivot_longer()` function (`r emo::ji("package")` `tidyr`) on some similar data. 
+We are going to use that same function here to switch our data set from `wide` to `long`
+We will create a new object called `pea_dat_long`(so that we can easily compare the two data frames.)so that we retain the original format of the data which might be useful for comparison)
+
+*Remember* you can inspect the help file for the function in the help tab, this will help you to understand what arguments the function is expecting
+
+```{r}
+# remember to load the dplyr package 
+library(tidyr)
+
+# reshape the data
+pea_dat_long <- pivot_longer(
+  pea_dat,
+  cols = NitroGrow:Control,
+  names_to = "Treatment",
+  values_to = "Yield"
+)
+```
+
+### Investigate using a linear model 
+
+Now that you have your data in long format you should be able to:
+
+ + Create a plot that details the differences in yield across different treatments (box plot or violin plot)
+ + Create a linear model in which Yield is your response variable
+ + Interpret the results of your model 
+ 
+ Refer back to your notes from the previous practical if you need.
+ 
+### Adding an additional explanatory variable 
+ 
+You may notice that these data have the additional variable of Block which refers to the blocked design of the study. 
+The Blocks are numbered 1-6, to include the effect of the Block in your model you will need R to recognize the variable as categorical rather than numerical.
+ 
+Use the `$` to specify the column that you want to alter along with the `as.factor()` function to overwrite the current `Block` variable so that R recognizes it as categorical rather than as numeric.
+ 
+```{r, eval = FALSE}
+#convert the values from numeric to categorical
+pea_dat_long$Block <- as.factor(name_of_your_dataset$column_you_want_to_convert)
+```
+
+```{r echo = FALSE}
+pea_dat_long$Block <- as.factor(pea_dat_long$Block)
+```
+ 
+ 
+ + Create a second linear model that includes Block as an additional explanatory variable 
+ + Compare the ANOVA tables for each model
+ + Write a short paragraph summarizing the results from your investigations of this data set, does the addition of Block as an explanatory variable improve your model?
+ 
+ 
+## next data set
+
+non linear response - make them figure that out 
+ 
+
+
+
+ 
+ - load the data
+ - familiarise yourself with it
+ - give them a response variable, make them work out an explanatory variable 
+ - is this a good model 
+ - how could we make it better - account for the blocking of data 
+
+Randomisation/ blocking
+- worked example, adding bocks to linear model 
+- boxplot levels 
+- create 2 models: response~explan and responseexplan + block
+- anova, interpret outputs
+
+Fitting curves 
+- improve model by adding quadratic 
+-add confidence interval to lm plot 
+- interpret outputs of model?
+
+Interactions between explanatory variables 
+- plot data, boxplot eg (gf_boxplot(calcium~site, colour = ~sex))
+- test for interaction 
+response~ explan 1 + explan 2 
+response~ explan1 + explan2 +interaction 
+added using : resp~ a + B +a:B
+boxplots of resp a and resp B 
+
+unbalanced data 
+
+using sums of squares in linear model - anova how does it wok and how should you use it 
+
+
+
+
