@@ -28,8 +28,6 @@ During this tutorial we are going to recap how to deal with multiple explanatory
 
 ```
  
-
- 
 ### Lets talk about the data
  
 Often when you come to analyse some data you find that the data are stored in a format that is not quite what you want for analysis.
@@ -49,7 +47,10 @@ We have columns containing the yield values  resulting from each treatment.
 To compare the effects of the treatments on the yield values it would be more useful to have the yield values as a column alongside a column detailing the treatment.
 This is what is referred to as `long format` data where each row contains a single observation. 
 
-**- insert image here** 
+
+```{r echo = FALSE}
+knitr::include_graphics("images/Pivot_longer.png")
+```
 
 You may have noticed that in the previous tutorial we used the `pivot_longer()` function (`r emo::ji("package")` `tidyr`) on some similar data. 
 We are going to use that same function here to switch our data set from `wide` to `long`
@@ -69,6 +70,9 @@ pea_dat_long <- pivot_longer(
   values_to = "Yield"
 )
 ```
+
+Here we have specified our data to be the `pea_dat` data frame, we tell R that the columns that we want to alter are those from `NitroGrow` to (`:`) `Control`, the function then takes those column names and adds them to the new column that we have named `Treatment` and adds the values that were contained in the origional data and adds them to the new `Yeild` column.
+
 
 ### Investigate using a linear model 
 
@@ -102,30 +106,56 @@ pea_dat_long$Block <- as.factor(pea_dat_long$Block)
  + Write a short paragraph summarizing the results from your investigations of this data set, does the addition of Block as an explanatory variable improve your model?
  
  
-## next data set
+## Animal weights
 
-non linear response - make them figure that out 
+```{r echo = FALSE}
+pantheria <- read.csv("Data/Pantheria.csv")
+
+```
+
+Lets switch from pants to animals. 
+The data contained in the `Pantheria.csv` file contains information from the [Pantheria database](https://ecologicaldata.org/wiki/pantheria)
+You have data which details records of weight,head-body length, skull length, home range and density for species from accross several families of the order Carnivora.
+
++ Load the data into R and investigate it
++ Generate some summary statistics and plots that describe your data
+
+You can use this data to practice another common data manipulation technique - filtering
+There may be times where we have more data than we want to investigate or plot, in these instances it can be useful to extract only a subset of our data.
+The pantheria data for example contains species from several families of carnivores but you might only be interested in one family of animals.
+In such instances we can use the `filter` function (`r emo::ji("package")` dplyr) to extract only the subset that we are interested in. 
+
+For example if we wanted to create a data framt that contained only information regarding the Canide (dog) family we could do the following:
+
+```{r,warning= FALSE, message = FALSE}
+#load the package
+library(dplyr)
+#filter the pantheria data to keep only rows where the Family
+#has the value "Canidae"
+dog_dat <- filter(pantheria, Family == "Canidae")
+```
+
+
+ + Choose a family to investigate, create a new data frame containing only records from that family
+ + Create a plot of the data that shows the relationship between head-body length and skull length
  
+Lets return to the full dataset and investigate the relationship between **body size** and **weight**.
+We have measurements of body length and body weight but what is the relationship between the two?
+Are longer animals heavier?
 
-
-
+ + Create a linear model to describe the relationship between body length and body weight
+ + Plot your model and evaluate the model (using summary outputs, qq plots etc.)
+ + Does the model look like a good fit of the data?
+ + How could you improve the fit of your model? 
  
- - load the data
- - familiarise yourself with it
- - give them a response variable, make them work out an explanatory variable 
- - is this a good model 
- - how could we make it better - account for the blocking of data 
+Remember that the relationship might not be linear and might be improved by adding a quadratic term.
+You can investigate the addition of a quadratic term or the addition of Family as a grouping variable.
+Interrogate these models and determine which you think is the most appropriate or most useful. 
 
-Randomisation/ blocking
-- worked example, adding bocks to linear model 
-- boxplot levels 
-- create 2 models: response~explan and responseexplan + block
-- anova, interpret outputs
++ Write a paragrph describing your results, inclued refereces to your model statistics and any plots that you think are useful.
 
-Fitting curves 
-- improve model by adding quadratic 
--add confidence interval to lm plot 
-- interpret outputs of model?
+
+## Interactions between explanatory variables
 
 Interactions between explanatory variables 
 - plot data, boxplot eg (gf_boxplot(calcium~site, colour = ~sex))
