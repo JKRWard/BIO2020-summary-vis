@@ -176,6 +176,14 @@ It would be useful to add an interaction term to the model if we wanted to test 
  + Re-code the variables so that R recognizes them as categorical rather than numerical
  + Create a linear model in which shrub height is the response variable
  + Create a model with the addition of an interaction term between the two explanatory variables
+ 
+ Remember that the syntax for including interaction terms is as follows 
+ 
+```{r, eval = FALSE}
+# the : denotes the interaction
+model <- lm(response~ explan1 + explan2 + explan1:explan2, data = dataset)
+```
+ 
  + Is the impact of soil bacteria different if a plant is in full or partial sun?
  + Write a summary of your results including references to model outputs, whether the model assumptions have been met and any figures that you have created. 
 
