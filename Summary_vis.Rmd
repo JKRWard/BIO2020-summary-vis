@@ -191,11 +191,13 @@ We can calculate some summary statistics for each group.
 
 Have a look at the mean and sd for x and y values using dataset as a grouping variable
 
-```{r datasaurus, exercise=TRUE, exercise.completion=FALSE}
+```{r datasaurus, echo = TRUE}
 # mean and sd of x values in each group
-
+mean(x~dataset, data = datasaurus_dozen, na.rm=TRUE)
+mean(y~dataset, data = datasaurus_dozen, na.rm=TRUE)
 # mean and sd of y values in each group
- 
+sd(x~dataset, data = datasaurus_dozen, na.rm=TRUE)
+sd(y~dataset, data = datasaurus_dozen, na.rm=TRUE)
 ```
 <div id="datasaurus-hint">
 **Hint** Remember the formula $$\text{statistic(variable ~ group, data= dataset)}$$ 
