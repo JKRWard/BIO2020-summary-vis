@@ -38,7 +38,7 @@ The data files for all of the practical classes are available on Canvas, you sho
 
 The next step is to create a new `script` to store all of the code for today's practical. 
 In the top left click `file` > `new file` > `R script`
-Click on the save icon `r emo::ji("floppy_disk")` to save this script and give it a meaningful name eg. `Practicl_1.R`
+Click on the save icon `r emo::ji("floppy_disk")` to save this script and give it a meaningful name eg. `Practical_1.R`
 Now we are ready to write some code!
 
 ### Running code
@@ -361,7 +361,7 @@ growth_dat <- read.csv("Data/Chick_growth.csv")
 
 ## Export data and plots
 
-Now that you have created some summary data and plots that describe the dataset you need to export them to b able to put them in a report.
+Now that you have created some summary data and plots that describe the dataset you need to export them to be able to put them in a report.
 
 Export the data frame that you created detailing the mean, median, variance, standard deviation and standard error of chick weights. 
 
@@ -370,7 +370,7 @@ The arguments of the `write.csv()` function are the name of the `object` that yo
 
 ```{r, eval = FALSE}
 # note that the file path specifies that the file should be created in the Data folder
-write.csv(my_data_frame, path = "Data/Chick_summary.csv")
+write.csv(my_data_frame, "Data/Chick_summary.csv")
 ```
 
 You should now see the file that you have just created in your file explorer, you can open the file in excel  and use this to create a table that you can import into a word document. 
