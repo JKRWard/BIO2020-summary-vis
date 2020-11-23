@@ -1,0 +1,235 @@
+---
+title: "Attitudes to wildlife control"
+date: '`r format(Sys.Date(), "%d %B, %Y")`'
+output: powerpoint_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message= FALSE, warning = FALSE)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(viridis)
+```
+
+```{r}
+#read in data 
+rawd <- read.csv("test.csv")
+```
+
+
+
+# Acceptability of fox control
+
+```{r}
+#select data from first 5 questions
+fox_dat <- rawd %>% select(1:6) %>% 
+  rename("Human health"= names(rawd)[2], 
+         "Livestock" = names(rawd)[3],
+         "Gamebirds" = names(rawd)[4],
+         "Endangered Sp." = names(rawd)[5],
+         "Nuisance activ." =names(rawd)[6]) %>% 
+  pivot_longer(.,2:6, names_to = "Scenario", values_to= "accept") %>% mutate(accept= forcats::fct_relevel(accept,c("yes",  "don't know","no")))
+
+ggplot(fox_dat, aes(x= Scenario))+
+  geom_bar(aes(fill = accept), position = "fill")+
+  scale_fill_manual(values = viridis(3))+
+    labs( y = "Proportion", fill = "Acceptable")+
+  coord_flip()+
+  theme_bw()+
+  theme(legend.position="bottom")
+
+```
+
+# Who should undertake fox control
+
+```{r}
+#select data from questions
+fox_dat <- rawd %>% select(1,7:11) %>% 
+  rename("Public"= names(rawd)[7], 
+         "Public-code of conduct" = names(rawd)[8],
+         "Public-trained" = names(rawd)[9],
+         "Specialist." = names(rawd)[10],
+         "Never approve." =names(rawd)[11]) %>% 
+  pivot_longer(.,2:6, names_to = "Scenario", values_to= "accept")%>% mutate(accept= forcats::fct_relevel(accept,c("yes",  "don't know","no")))
+
+ggplot(fox_dat, aes(x= Scenario))+
+  geom_bar(aes(fill = accept), position = "fill")+
+    scale_fill_manual(values = viridis(3))+
+    labs( y = "Proportion", fill = "Acceptable")+
+  coord_flip()+
+  theme_bw()+
+  theme(legend.position="bottom")
+
+```
+
+# Acceptability of methods
+
+```{r}
+#select data from  questions
+Accept_dat <- rawd %>% select(1,12:20) %>% 
+  rename("Poison bait"= names(rawd)[20],
+         "Fertility control bait"= names(rawd)[19],
+         "Dogs and firearms"= names(rawd)[17],
+         "Hunt and kill dogs"= names(rawd)[16],
+         "Cages + Fert. Cont."= names(rawd)[18],
+         "Lethal snares"= names(rawd)[14],
+         "Non-lethal snares"= names(rawd)[13],
+         "Cages + Firearms"= names(rawd)[15],
+         "Firearms"= names(rawd)[12]) %>% 
+  pivot_longer(2:10, names_to = "Method", values_to = "Acceptability")
+
+
+Accept_dat$Acceptability <- as.factor(Accept_dat$Acceptability)
+Accept_dat <- Accept_dat %>% mutate(Acceptability = forcats::fct_relevel(Acceptability, c("high support", "support", "don\xd5t know", "oppose", "highly oppose")))
+
+ggplot(Accept_dat, aes(x= Method))+
+  geom_bar(aes(fill = Acceptability), position = "fill")+
+      scale_fill_manual(values = viridis(5))+
+    labs( y = "Proportion")+
+  coord_flip()+
+  theme_bw()+
+  theme(legend.position="bottom")
+
+```
+
+# Efficacy of methods
+
+```{r}
+#select data from  questions
+Effi_dat <- rawd %>% select(1,21:29) %>% 
+  rename("Poison bait"= names(rawd)[29],
+         "Fertility control bait"= names(rawd)[28],
+         "Dogs and firearms"= names(rawd)[26],
+         "Hunt and kill dogs"= names(rawd)[25],
+         "Cages + Fert. Cont."= names(rawd)[27],
+         "Lethal snares"= names(rawd)[23],
+         "Non-lethal snares"= names(rawd)[22],
+         "Cages + Firearms"= names(rawd)[24],
+         "Firearms"= names(rawd)[21]) %>% 
+  pivot_longer(2:10, names_to = "Method", values_to = "Efficacy")
+
+
+Effi_dat$Efficacy <- as.factor(Effi_dat$Efficacy)
+Effi_dat <- Effi_dat %>% mutate(Efficacy = forcats::fct_relevel(Efficacy, c("highly effective", "effective", "don\xd5t know", "ineffective", "highly ineffective")))
+
+ggplot(Effi_dat, aes(x= Method))+
+  geom_bar(aes(fill = Efficacy), position = "fill")+
+      scale_fill_manual(values = viridis(5))+
+    labs( y = "Proportion")+
+  coord_flip()+
+  theme_bw()+
+  theme(legend.position="bottom")
+
+```
+
+# Acceptabilty vs. Efficacy
+
+```{r}
+# Accept_dat <- rawd %>% select(1,12:20) %>% 
+#   rename("Poison bait"= names(rawd)[12],
+#          "Fertility control bait"= names(rawd)[13],
+#          "Dogs and firearms"= names(rawd)[14],
+#          "Hunt and kill dogs"= names(rawd)[15],
+#          "Cages"= names(rawd)[16],
+#          "Lethal snares"= names(rawd)[17],
+#          "Non-lethal snares"= names(rawd)[18],
+#          "Firearms"= names(rawd)[19]) %>% 
+#   pivot_longer(2:9, names_to = "Method", values_to = "Acceptability")
+# 
+# Eff_dat <- rawd %>% select(1,20:27) %>% 
+#   rename("Poison bait"= names(rawd)[20],
+#          "Fertility control bait"= names(rawd)[21],
+#          "Dogs and firearms"= names(rawd)[22],
+#          "Hunt and kill dogs"= names(rawd)[23],
+#          "Cages"= names(rawd)[24],
+#          "Lethal snares"= names(rawd)[25],
+#          "Non-lethal snares"= names(rawd)[26],
+#          "Firearms"= names(rawd)[27]) %>% 
+#    pivot_longer(2:9, names_to = "Method", values_to = "Efficacy")
+
+# join the two datasets together
+# could just bind_col to add efficacy BUT might not work if any missing data? 
+# check type of data from canvas - either code as factor or convert to numbers
+AEdat <- bind_cols(Accept_dat, Effi_dat$Efficacy) %>% 
+  rename("Efficacy"= "...4" ) 
+# AEdat$Acceptability <-   recode(AEdat$Acceptability,"high support" = "5",
+#          "support"= "4",
+#          "oppose"= "2",
+#          "highly oppose" = "1",
+#          .default = "3")
+# AEdat$Efficacy <-   recode(AEdat$Efficacy,"highly effective" = "5",
+#          "effective"= "4",
+#          "ineffective"= "2",
+#          "highly ineffective" = "1",
+#           .default = "3")
+# AEdat$Acceptability <- as.numeric(AEdat$Acceptability)
+# AEdat$Efficacy <- as.numeric(AEdat$Efficacy)
+
+
+ggplot(AEdat, aes(x = Efficacy, y = Acceptability))+
+  geom_point( aes( colour = Method),alpha = 0.8)+
+  geom_jitter(aes( colour = Method),width = 0.2, height = 0.2)+
+  theme_bw()+
+  theme(legend.position="bottom")
+
+
+```
+
+```{r}
+#or only display mean scores for each method
+
+# mean_AE <- AEdat %>% group_by(Method) %>% summarise(Acceptability = mean(Acceptability), Efficacy = mean(Efficacy))
+# 
+# ggplot(mean_AE, aes(x = Efficacy, y = Acceptability))+
+#   geom_point(aes( colour = Method),alpha = 0.8)+
+#   theme_bw()
+```
+
+# Clustering of responses
+
+# Acceptability of squirrel control
+
+```{r}
+squirrel_dat <- rawd %>% select(1, 30,46,47) %>% 
+  rename("Grey control to protect reds" = names(rawd)[30],
+         "Grey control to protect timber" = names(rawd)[46],
+         "Red control to protect timber" = names(rawd)[47]) %>% 
+  pivot_longer(2:4, names_to = "Scenario", values_to= "Acceptability") %>% 
+  mutate(Acceptability = forcats::fct_relevel(Acceptability, c("Yes", "Unsure", "No")))
+
+
+ggplot(squirrel_dat, aes(x= Scenario))+
+  geom_bar(aes(fill = Acceptability), position = "fill")+
+      scale_fill_manual(values = viridis(3))+
+  labs( y = "Proportion", fill = "Acceptable")+
+  coord_flip()+
+  theme_bw()+
+  theme(legend.position="bottom")
+  
+```
+
+# To protect wild and reared game
+
+```{r}
+wild_game<- rawd %>% select(1, 32,33,35,42) %>% 
+  rename("Stoat" = names(rawd)[32],
+         "Fox" = names(rawd)[33],
+         "Pine marten" = names(rawd)[35],
+         "Birds of prey" = names(rawd)[42]
+         ) %>% 
+  pivot_longer(2:5, names_to = "Scenario", values_to= "Acceptability") %>% 
+  mutate(Acceptability = forcats::fct_relevel(Acceptability, c("Yes", "Unsure", "No")))
+
+
+ggplot(wild_game, aes(x= Scenario))+
+  geom_bar(aes(fill = Acceptability), position = "fill")+
+      scale_fill_manual(values = viridis(3))+
+  labs(x = "Control species", y = "Proportion", fill = "Acceptable")+
+  coord_flip()+
+  theme_bw()+
+  theme(legend.position="bottom")
+  
+```
+
